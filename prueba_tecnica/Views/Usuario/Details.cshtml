@@ -1,0 +1,66 @@
+﻿@model prueba_tecnica.crudUsuarioResult
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalle de Usuarios</h2>
+
+<div>
+    <h4>crudUsuarioResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nomUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apeUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apeUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idrol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idrol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idMembresia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idMembresia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

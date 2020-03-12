@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="aplicacion1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Membresias">
+          <Key>
+            <PropertyRef Name="idMembresia" />
+          </Key>
+          <Property Name="idMembresia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoMembresia" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idrol" />
+          </Key>
+          <Property Name="idrol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tiporol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apeUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idrol" Type="int" Nullable="false" />
+          <Property Name="idMembresia" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Usuario__idMembr__3C69FB99">
+          <End Role="Membresias" Type="Self.Membresias" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membresias">
+              <PropertyRef Name="idMembresia" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idMembresia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idrol__3B75D760">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aplicacion1ModelStoreContainer">
+          <EntitySet Name="Membresias" EntityType="Self.Membresias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Usuario__idMembr__3C69FB99" Association="Self.FK__Usuario__idMembr__3C69FB99">
+            <End Role="Membresias" EntitySet="Membresias" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idrol__3B75D760" Association="Self.FK__Usuario__idrol__3B75D760">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="aplicacion1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Membresia">
+          <Key>
+            <PropertyRef Name="idMembresia" />
+          </Key>
+          <Property Name="idMembresia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoMembresia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__idMembr__3C69FB99" FromRole="Membresias" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idrol" />
+          </Key>
+          <Property Name="idrol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tiporol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__idrol__3B75D760" FromRole="Roles" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apeUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idrol" Type="Int32" Nullable="false" />
+          <Property Name="idMembresia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Membresia" Relationship="Self.FK__Usuario__idMembr__3C69FB99" FromRole="Usuario" ToRole="Membresias" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Usuario__idrol__3B75D760" FromRole="Usuario" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK__Usuario__idMembr__3C69FB99">
+          <End Role="Membresias" Type="Self.Membresia" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membresias">
+              <PropertyRef Name="idMembresia" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idMembresia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idrol__3B75D760">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aplicacion1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Membresias" EntityType="Self.Membresia" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Usuario__idMembr__3C69FB99" Association="Self.FK__Usuario__idMembr__3C69FB99">
+            <End Role="Membresias" EntitySet="Membresias" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idrol__3B75D760" Association="Self.FK__Usuario__idrol__3B75D760">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="aplicacion1ModelStoreContainer" CdmEntityContainer="aplicacion1Entities">
+          <EntitySetMapping Name="Membresias">
+            <EntityTypeMapping TypeName="aplicacion1Model.Membresia">
+              <MappingFragment StoreEntitySet="Membresias">
+                <ScalarProperty Name="idMembresia" ColumnName="idMembresia" />
+                <ScalarProperty Name="tipoMembresia" ColumnName="tipoMembresia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="aplicacion1Model.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="idrol" ColumnName="idrol" />
+                <ScalarProperty Name="tiporol" ColumnName="tiporol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="aplicacion1Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nomUsuario" ColumnName="nomUsuario" />
+                <ScalarProperty Name="apeUsuario" ColumnName="apeUsuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="idrol" ColumnName="idrol" />
+                <ScalarProperty Name="idMembresia" ColumnName="idMembresia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

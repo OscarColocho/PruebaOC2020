@@ -1,0 +1,83 @@
+﻿@*@model IEnumerable<prueba_tecnica.crudUsuarioResult>*@
+@model IEnumerable<prueba_tecnica.Models.UsuarioClass>
+@{
+    ViewBag.Title = "Index";
+}
+@section scripts{
+
+    <script>
+        $(function () {
+
+            $("#btn-Delete-ajax").Click(function () {
+                var url = "@Url.Action("BorrarPersona", "Usuario")";
+                var id = $("#txtcaptura").val();
+                var data = { id: id }
+                $.post(url, data)
+            });
+
+        });
+                   
+
+    </script>
+
+
+}
+<h2>Tabla de usuarios</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            id
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Apellido
+        </th>
+        <th>
+            Correo
+        </th>
+        <th>
+            Rol
+        </th>
+        <th>
+            Membresia
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>@item.tipousuario.idUsuario</td>
+            <td>@item.tipousuario.nomUsuario</td>
+            <td>@item.tipousuario.apeUsuario</td>
+            <td>@item.tipousuario.correo</td>
+            <td>@item.tiporol.tiporol</td>
+            <td>@item.tipoMembresia.tipoMembresia</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.tipousuario.idUsuario }) |
+                @Html.ActionLink("Details", "Details", new { id = item.tipousuario.idUsuario }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.tipousuario.idUsuario })
+
+                <input id="btn-Delete-ajax" type="button" value="Borrar" />
+                @Html.TextBox("txtcaptura", item.tipousuario.idUsuario)
+
+
+            </td>
+
+
+
+
+        </tr>
+
+    }
+
+</table>
+
