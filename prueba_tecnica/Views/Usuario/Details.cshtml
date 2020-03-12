@@ -4,63 +4,74 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalle de Usuarios</h2>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Detalle de usuario</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h4>crudUsuarioResult</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.idUsuario)
+                            </dt>
 
-<div>
-    <h4>crudUsuarioResult</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.idUsuario)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.idUsuario)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.idUsuario)
-        </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.nomUsuario)
+                            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nomUsuario)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.nomUsuario)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nomUsuario)
-        </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.apeUsuario)
+                            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apeUsuario)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.apeUsuario)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.apeUsuario)
-        </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.correo)
+                            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.correo)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.correo)
-        </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.idrol)
+                            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.idrol)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.idrol)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.idrol)
-        </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.idMembresia)
+                            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.idMembresia)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.idMembresia)
+                            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.idMembresia)
-        </dd>
-
-    </dl>
+                        </dl>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.idUsuario }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

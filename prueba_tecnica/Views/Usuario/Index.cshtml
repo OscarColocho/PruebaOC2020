@@ -3,81 +3,123 @@
 @{
     ViewBag.Title = "Index";
 }
-@section scripts{
 
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Tabla de usuarios</h4>
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class="btn btn-success"})
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+
+
+                        <table class="table">
+                            <tr>
+
+                                <th>
+                                    id
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Apellido
+                                </th>
+                                <th>
+                                    Correo
+                                </th>
+                                <th>
+                                    Rol
+                                </th>
+                                <th>
+                                    Membresia
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr id="tr_@item.tipousuario.idUsuario">
+
+                                    <td>@item.tipousuario.idUsuario</td>
+                                    <td>@item.tipousuario.nomUsuario</td>
+                                    <td>@item.tipousuario.apeUsuario</td>
+                                    <td>@item.tipousuario.correo</td>
+                                    <td>@item.tiporol.tiporol</td>
+                                    <td>@item.tipoMembresia.tipoMembresia</td>
+                                   
+                                    <td>
+                                        @if (item.tiporol.tiporol != "Administrador")
+                                        {
+                                            <a href="@Url.Action("Edit", "Usuario", new { id = item.tipousuario.idUsuario })" class="btn btn-info">Editar</a>
+                                            <a href="@Url.Action("Details", "Usuario", new { id = item.tipousuario.idUsuario })" class="btn btn-info">Detalles</a>
+
+
+                                            <input data-idusuario="@item.tipousuario.idUsuario" class="btn btn-danger btneliminarusuario" type="button" value="Borrar" />
+                                        }
+
+
+
+
+                                    </td>
+
+
+
+
+                                </tr>
+
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <script>
-        $(function () {
+        $(document).ready(function () {
 
-            $("#btn-Delete-ajax").Click(function () {
+            $(".btneliminarusuario").on("click", function () {
+                var closest = $(this).closest('tr');
+                var id = $(this).data("idusuario")
+                console.log(id);
+                if (confirm("Estas seguro de eliminar este usuario?")) {
+
                 var url = "@Url.Action("BorrarPersona", "Usuario")";
-                var id = $("#txtcaptura").val();
+
                 var data = { id: id }
-                $.post(url, data)
+                console.log(data);
+                $.post(url, data,
+                    function (data, status) {
+                        my_function(data, closest);
+                    });
+                }
+                else {
+                    return false;
+                }
             });
 
+            function my_function(data,idtr) {
+                // you can operate on data here
+                alert(data);
+                if (data == "Registro eliminado") {
+                    console.log("eliminando fila");
+                    idtr.remove();
+                }
+            }
         });
-                   
+
+
+
+
+
 
     </script>
-
-
-}
-<h2>Tabla de usuarios</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-
-        <th>
-            id
-        </th>
-        <th>
-            Nombre
-        </th>
-        <th>
-            Apellido
-        </th>
-        <th>
-            Correo
-        </th>
-        <th>
-            Rol
-        </th>
-        <th>
-            Membresia
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>@item.tipousuario.idUsuario</td>
-            <td>@item.tipousuario.nomUsuario</td>
-            <td>@item.tipousuario.apeUsuario</td>
-            <td>@item.tipousuario.correo</td>
-            <td>@item.tiporol.tiporol</td>
-            <td>@item.tipoMembresia.tipoMembresia</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.tipousuario.idUsuario }) |
-                @Html.ActionLink("Details", "Details", new { id = item.tipousuario.idUsuario }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.tipousuario.idUsuario })
-
-                <input id="btn-Delete-ajax" type="button" value="Borrar" />
-                @Html.TextBox("txtcaptura", item.tipousuario.idUsuario)
-
-
-            </td>
-
-
-
-
-        </tr>
-
-    }
-
-</table>
-

@@ -10,12 +10,12 @@ namespace prueba_tecnica.Controllers
     public class UsuarioController : Controller
     {
         DataClasses1DataContext dc = new DataClasses1DataContext();
-        
+        private aplicacion1Entities db = new aplicacion1Entities();
         // GET: Usuario
         public ActionResult Index()
         {
             
-            var getusuariorecords = dc.crudUsuario(null, null, null, null,null,null, "Select").ToList();
+            var getusuariorecords = dc.crudUsuario(null, null, null, null,null,null, "Select",null).ToList();
 
             
             aplicacion1Entities sd = new aplicacion1Entities();
@@ -37,13 +37,18 @@ namespace prueba_tecnica.Controllers
         public ActionResult Details(int id)
         {
           
-            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details").Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null, null, null,"Details",null).Single(x => x.idUsuario == id);
             return View(empdetails);
         }
 
         // GET: Usuario/Create
         public ActionResult Create()
         {
+            var roles = (from a in db.Roles select a).ToList();
+            ViewBag.roles = roles;
+
+            var membresia = (from a in db.Membresias select a).ToList();
+            ViewBag.membresia = membresia;
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace prueba_tecnica.Controllers
             try
             {
                 // TODO: Add insert logic here
-                dc.crudUsuario(null, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Insert");
+                dc.crudUsuario(null, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Insert",collection.contrasena);
                 dc.SubmitChanges();
                 return RedirectToAction("Index");
             }
@@ -68,7 +73,12 @@ namespace prueba_tecnica.Controllers
         public ActionResult Edit(int id)
         {
             
-            var empdetails = dc.crudUsuario(id, null, null, null,null,null, "Details").Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null,null,null, "Details",null).Single(x => x.idUsuario == id);
+            var roles = (from a in db.Roles select a).ToList();
+            ViewBag.roles = roles;
+
+            var membresia = (from a in db.Membresias select a).ToList();
+            ViewBag.membresia = membresia;
             return View(empdetails);
         }
 
@@ -79,7 +89,7 @@ namespace prueba_tecnica.Controllers
             try
             {
                 // TODO: Add update logic here
-                dc.crudUsuario(id, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Update");
+                dc.crudUsuario(id, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Update",collection.contrasena);
                 dc.SubmitChanges();
                 return RedirectToAction("Index");
             }
@@ -94,7 +104,7 @@ namespace prueba_tecnica.Controllers
         {
           
 
-            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details").Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details",null).Single(x => x.idUsuario == id);
             return View(empdetails);
 
         }
@@ -110,7 +120,7 @@ namespace prueba_tecnica.Controllers
                 {
 
                     // TODO: Add delete logic here
-                    dc.crudUsuario(id, null, null, null, null, null, "Delete");
+                    dc.crudUsuario(id, null, null, null, null, null, "Delete",null);
                     dc.SubmitChanges();
                     return RedirectToAction("Index");
 
@@ -139,22 +149,21 @@ namespace prueba_tecnica.Controllers
                 {
 
                     // TODO: Add delete logic here
-                    dc.crudUsuario(id, null, null, null, null, null, "Delete");
+                    dc.crudUsuario(id, null, null, null, null, null, "Delete",null);
                     dc.SubmitChanges();
-                    
 
-                    throw new ApplicationException("Registro eliminado");
+                    return Json("Registro eliminado");
                 }
                 else
                 {
-                    throw new ApplicationException("No se pudo eliminar el registro");
+                    return Json("No se pudo eliminar el registro");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                return Json("Error: " + ex.Message);
             }
-            return Json("Index");
+            
         }
 
 

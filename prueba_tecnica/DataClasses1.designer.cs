@@ -63,9 +63,9 @@ namespace prueba_tecnica
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.crudUsuario")]
-		public ISingleResult<crudUsuarioResult> crudUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string nomUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string apeUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idrol, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idMembresia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CrudOption", DbType="VarChar(50)")] string crudOption)
+		public ISingleResult<crudUsuarioResult> crudUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string nomUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string apeUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idrol, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idMembresia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CrudOption", DbType="VarChar(50)")] string crudOption, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string contrasena)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nomUsuario, apeUsuario, correo, idrol, idMembresia, crudOption);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nomUsuario, apeUsuario, correo, idrol, idMembresia, crudOption, contrasena);
 			return ((ISingleResult<crudUsuarioResult>)(result.ReturnValue));
 		}
 	}
@@ -84,6 +84,8 @@ namespace prueba_tecnica
 		private int _idrol;
 		
 		private int _idMembresia;
+		
+		private string _contrasena;
 		
 		public crudUsuarioResult()
 		{
@@ -181,6 +183,22 @@ namespace prueba_tecnica
 				if ((this._idMembresia != value))
 				{
 					this._idMembresia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contrasena", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string contrasena
+		{
+			get
+			{
+				return this._contrasena;
+			}
+			set
+			{
+				if ((this._contrasena != value))
+				{
+					this._contrasena = value;
 				}
 			}
 		}
