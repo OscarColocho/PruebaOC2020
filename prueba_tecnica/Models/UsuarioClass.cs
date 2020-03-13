@@ -16,7 +16,6 @@ namespace prueba_tecnica.Models
         public Usuario tipousuario { get; set; }
         public Role tiporol { get; set; }
         public Membresia tipoMembresia { get; set; }
-        public string contrasena { get; set; }
 
     }
 }

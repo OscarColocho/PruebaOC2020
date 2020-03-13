@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<prueba_tecnica.Models.UsuarioClass>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Login";
 }
-<!-- MAIN CONTENT-->
+
 <div class=" container">
 
-    @{
-        if (!string.IsNullOrEmpty(ViewBag.Message))
+    @{ 
+        if(!string.IsNullOrEmpty(ViewBag.Message))
         {
             <div class="alert alert-warning">@ViewBag.Message</div>
         }
     }
 
-    <form action="/Home/Login" method="post">
+
+
+    <form action="/Usuario/Login" method="post">
         <div class="form-group">
             <label>Ingresa tu nombre de usuario</label>
             <input type="text" name="usuario" value="" />
@@ -25,6 +28,10 @@
             <button>Iniciar sesion</button>
         </div>
     </form>
-
-
+    
+    
+    
+    
+    
+    
 </div>

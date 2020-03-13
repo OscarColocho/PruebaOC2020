@@ -35,6 +35,11 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
+                   
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="/Usuario/Login">cerrar sesion</a></li>
+                    }
                     <li class="active ">
                         <a href="@Url.Action("Index","Usuario")">
                             <i class="nc-icon nc-tile-56"></i>

@@ -27,9 +27,6 @@ idrol int foreign key references Roles(idrol) not null,
 idMembresia int foreign key references Membresias(idMembresia) not null
 )
 
-
-
-
 insert into Roles values('Administrador')
 insert into Roles values('Usuario')
 
@@ -37,8 +34,9 @@ insert into Membresias values('Basico')
 insert into Membresias values('Platino')
 insert into Membresias values('Premium')
 
+insert into Usuario values('oscarA','colocho','colocho',1,1)
+
 select * from Roles
 select * from Membresias
 select * from Usuario
 
-select a.nomUsuario,a.apeUsuario,a.correo,b.tiporol,c.tipoMembresia from Usuario a inner join Roles b on a.idrol=b.idrol inner join Membresias c on a.idMembresia = c.idMembresia where a.idUsuario = 1;

@@ -54,16 +54,15 @@
                                     <td>@item.tipousuario.correo</td>
                                     <td>@item.tiporol.tiporol</td>
                                     <td>@item.tipoMembresia.tipoMembresia</td>
-                                   
                                     <td>
-                                        @if (item.tiporol.tiporol != "Administrador")
+                                        @if (item.tiporol.tiporol == "Administrador")
                                         {
                                             <a href="@Url.Action("Edit", "Usuario", new { id = item.tipousuario.idUsuario })" class="btn btn-info">Editar</a>
                                             <a href="@Url.Action("Details", "Usuario", new { id = item.tipousuario.idUsuario })" class="btn btn-info">Detalles</a>
-
+                                            
 
                                             <input data-idusuario="@item.tipousuario.idUsuario" class="btn btn-danger btneliminarusuario" type="button" value="Borrar" />
-                                        }
+                                         }
 
 
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aplicacion1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=aplicacion1;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="aplicacion1ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=OSCAR-PC;Initial Catalog=aplicacion1;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="aplicacion1ConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.crudUsuario" Method="crudUsuario">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="nomUsuario" Type="System.String" DbType="VarChar(50)" />
@@ -8,7 +8,6 @@
     <Parameter Name="idrol" Type="System.Int32" DbType="Int" />
     <Parameter Name="idMembresia" Type="System.Int32" DbType="Int" />
     <Parameter Name="CrudOption" Parameter="crudOption" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="contrasena" Type="System.String" DbType="VarChar(50)" />
     <ElementType Name="crudUsuarioResult">
       <Column Name="idUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="nomUsuario" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
@@ -16,7 +15,6 @@
       <Column Name="correo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="idrol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idMembresia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="contrasena" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

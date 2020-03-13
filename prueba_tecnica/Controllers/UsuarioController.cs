@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using prueba_tecnica.Models;
 
 namespace prueba_tecnica.Controllers
@@ -11,11 +13,12 @@ namespace prueba_tecnica.Controllers
     {
         DataClasses1DataContext dc = new DataClasses1DataContext();
         private aplicacion1Entities db = new aplicacion1Entities();
+
         // GET: Usuario
         public ActionResult Index()
         {
             
-            var getusuariorecords = dc.crudUsuario(null, null, null, null,null,null, "Select",null).ToList();
+            var getusuariorecords = dc.crudUsuario(null, null, null, null,null,null, "Select").ToList();
 
             
             aplicacion1Entities sd = new aplicacion1Entities();
@@ -37,7 +40,7 @@ namespace prueba_tecnica.Controllers
         public ActionResult Details(int id)
         {
           
-            var empdetails = dc.crudUsuario(id, null, null, null, null, null,"Details",null).Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details").Single(x => x.idUsuario == id);
             return View(empdetails);
         }
 
@@ -59,7 +62,7 @@ namespace prueba_tecnica.Controllers
             try
             {
                 // TODO: Add insert logic here
-                dc.crudUsuario(null, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Insert",collection.contrasena);
+                dc.crudUsuario(null, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Insert");
                 dc.SubmitChanges();
                 return RedirectToAction("Index");
             }
@@ -73,7 +76,7 @@ namespace prueba_tecnica.Controllers
         public ActionResult Edit(int id)
         {
             
-            var empdetails = dc.crudUsuario(id, null, null, null,null,null, "Details",null).Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null,null,null, "Details").Single(x => x.idUsuario == id);
             var roles = (from a in db.Roles select a).ToList();
             ViewBag.roles = roles;
 
@@ -89,7 +92,7 @@ namespace prueba_tecnica.Controllers
             try
             {
                 // TODO: Add update logic here
-                dc.crudUsuario(id, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Update",collection.contrasena);
+                dc.crudUsuario(id, collection.nomUsuario, collection.apeUsuario, collection.correo, collection.idrol, collection.idMembresia, "Update");
                 dc.SubmitChanges();
                 return RedirectToAction("Index");
             }
@@ -104,7 +107,7 @@ namespace prueba_tecnica.Controllers
         {
           
 
-            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details",null).Single(x => x.idUsuario == id);
+            var empdetails = dc.crudUsuario(id, null, null, null, null, null, "Details").Single(x => x.idUsuario == id);
             return View(empdetails);
 
         }
@@ -120,7 +123,7 @@ namespace prueba_tecnica.Controllers
                 {
 
                     // TODO: Add delete logic here
-                    dc.crudUsuario(id, null, null, null, null, null, "Delete",null);
+                    dc.crudUsuario(id, null, null, null, null, null, "Delete");
                     dc.SubmitChanges();
                     return RedirectToAction("Index");
 
@@ -149,7 +152,7 @@ namespace prueba_tecnica.Controllers
                 {
 
                     // TODO: Add delete logic here
-                    dc.crudUsuario(id, null, null, null, null, null, "Delete",null);
+                    dc.crudUsuario(id, null, null, null, null, null, "Delete");
                     dc.SubmitChanges();
 
                     return Json("Registro eliminado");
@@ -165,6 +168,46 @@ namespace prueba_tecnica.Controllers
             }
             
         }
+
+        // GET: Login
+        public ActionResult Login(string message = "")
+        {
+            ViewBag.Message = message;
+            return View();
+        }
+        [HttpPost]
+       
+        public ActionResult Login(string usuario, string correo)
+        {
+            if(!string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(correo))
+            {
+
+                aplicacion1Entities abc = new aplicacion1Entities();
+                var user = abc.Usuarios.Where(e => e.nomUsuario.Equals(usuario) && e.correo.Equals(correo)).FirstOrDefault();
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(user.nomUsuario, true);
+                    return RedirectToAction("Index", "Usuario");
+                }
+                else
+                {
+                   
+                    return Login("no encontramos tus datos");
+                }
+            }
+            else
+            {
+                return Login("llena los campos para iniciar sesion");
+            }
+    
+        }
+       
+       public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login","Usuario");
+        }
+
 
 
 
